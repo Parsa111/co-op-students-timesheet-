@@ -593,11 +593,16 @@ export default function TimesheetApp() {
                 No shifts found. Record a shift above!
               </div>
             ) : (
-              filteredEntries.map((entry) => (
+              filteredEntries.map((entry, index) => (
                 <div key={entry.id} className="p-4 flex items-center justify-between gap-2">
                   <div>
-                    <div className="font-bold text-slate-900 text-sm">
-                      {entry.name}
+                    <div className="flex items-center gap-2">
+                      <span className="flex items-center justify-center w-5 h-5 shrink-0 rounded-full bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-500">
+                        {index + 1}
+                      </span>
+                      <div className="font-bold text-slate-900 text-sm">
+                        {entry.name}
+                      </div>
                     </div>
                     <div className="text-xs text-slate-500 mt-0.5">
                       {formatDisplayDate(entry.date)}
@@ -638,6 +643,7 @@ export default function TimesheetApp() {
             <table className="w-full text-left text-xs sm:text-sm">
               <thead className="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold text-xs uppercase tracking-wider">
                 <tr>
+                  <th className="py-3 px-4 w-10">#</th>
                   <th className="py-3 px-4">Student Name</th>
                   <th className="py-3 px-4">Date</th>
                   <th className="py-3 px-4">Time In</th>
@@ -649,13 +655,16 @@ export default function TimesheetApp() {
               <tbody className="divide-y divide-slate-100">
                 {filteredEntries.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-8 text-center text-slate-500 text-xs">
+                    <td colSpan={7} className="py-8 text-center text-slate-500 text-xs">
                       No timesheet entries recorded yet.
                     </td>
                   </tr>
                 ) : (
-                  filteredEntries.map((entry) => (
+                  filteredEntries.map((entry, index) => (
                     <tr key={entry.id} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="py-3 px-4 text-slate-400 font-semibold tabular-nums">
+                        {index + 1}
+                      </td>
                       <td className="py-3 px-4 font-bold text-slate-800">
                         {entry.name}
                       </td>
@@ -698,7 +707,7 @@ export default function TimesheetApp() {
               {filteredEntries.length > 0 && (
                 <tfoot className="bg-slate-50 font-bold border-t border-slate-200">
                   <tr>
-                    <td colSpan={4} className="py-3 px-4 text-right text-slate-700">
+                    <td colSpan={5} className="py-3 px-4 text-right text-slate-700">
                       TOTAL HOURS:
                     </td>
                     <td className="py-3 px-4 text-blue-700 font-extrabold text-sm">
