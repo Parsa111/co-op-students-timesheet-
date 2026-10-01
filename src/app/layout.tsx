@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   title: "Co-op Timesheet Tracker | Student Hours & Activity Logger",
   description:
     "Mobile-friendly timesheet recording web application for Co-op students. Track daily work hours, tasks, activities, and export directly to Excel (.xlsx) and Word (.docx).",
+  icons: {
+    icon: "/image.png",
+    shortcut: "/image.png",
+    apple: "/image.png",
+  },
 };
 
 export const viewport: Viewport = {
