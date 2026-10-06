@@ -25,6 +25,7 @@ import {
   Clock,
   User,
   Calendar,
+  ChevronDown,
   FileSpreadsheet,
   FileText,
   Plus,
@@ -501,12 +502,13 @@ export default function TimesheetApp() {
                       setName(e.target.value);
                       setSaveError("");
                     }}
-                    className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:border-blue-600 font-medium appearance-none"
+                    className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:border-blue-600 font-medium appearance-none"
                   >
                     <option value="">Select a student</option>
                     <option value="Parsa">Parsa</option>
-                    <option value="Alex">Alex</option>
+                    <option value="Elizabeth">Elizabeth</option>
                   </select>
+                  <ChevronDown className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
                 </div>
               </div>
 
