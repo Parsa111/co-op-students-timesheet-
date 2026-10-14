@@ -206,24 +206,38 @@ export default function TimesheetApp() {
       .reduce((sum, e) => sum + e.totalHours, 0);
   }, [entries]);
 
-  const weeklyHours = useMemo(() => {
-    const today = new Date();
-    const mondayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
-    const weekStart = new Date(today);
-    weekStart.setDate(today.getDate() + mondayOffset);
-    weekStart.setHours(0, 0, 0, 0);
+   const weeklyHours = useMemo(() => {
+     const today = new Date();
+     const mondayOffset = today.getDay() === 0 ? -6 : 1 - today.getDay();
+     const weekStart = new Date(today);
+     weekStart.setDate(today.getDate() + mondayOffset);
+     weekStart.setHours(0, 0, 0, 0);
 
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekStart.getDate() + 6);
-    weekEnd.setHours(23, 59, 59, 999);
+     const weekEnd = new Date(weekStart);
+     weekEnd.setDate(weekStart.getDate() + 6);
+     weekEnd.setHours(23, 59, 59, 999);
 
-    return entries
-      .filter((entry) => {
-        const entryDate = new Date(`${entry.date}T00:00:00`);
-        return entryDate >= weekStart && entryDate <= weekEnd;
-      })
-      .reduce((sum, e) => sum + e.totalHours, 0);
-  }, [entries]);
+     return entries
+       .filter((entry) => {
+         const entryDate = new Date(`${entry.date}T00:00:00`);
+         return entryDate >= weekStart && entryDate <= weekEnd;
+       })
+       .reduce((sum, e) => sum + e.totalHours, 0);
+   }, [entries]);
+
+   // Total hours for Parsa
+   const parsaHours = useMemo(() => {
+     return entries
+       .filter((entry) => entry.name.toLowerCase() === "parsa")
+       .reduce((sum, e) => sum + e.totalHours, 0);
+   }, [entries]);
+
+    // Total hours for Elizabeth
+    const elizabethHours = useMemo(() => {
+      return entries
+        .filter((entry) => entry.name.toLowerCase() === "elizabeth")
+        .reduce((sum, e) => sum + e.totalHours, 0);
+    }, [entries]);
 
   // Add shift (Saves to Supabase Database & updates UI)
   const handleAddShift = async (e: React.FormEvent) => {
@@ -613,20 +627,18 @@ export default function TimesheetApp() {
         <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
           {/* Table Toolbar */}
           <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div>
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <span>Logged Shifts ({filteredEntries.length})</span>
-                {isDbLoading && (
-                  <Loader2 className="w-3.5 h-3.5 text-blue-600 animate-spin" />
-                )}
-              </h3>
-              <div className="text-xs text-slate-500">
-                Total Work Hours:{" "}
-                <span className="font-extrabold text-blue-600 text-sm">
-                  {totalHours.toFixed(2)} hrs
-                </span>
+              <div>
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <span>Logged Shifts ({filteredEntries.length})</span>
+                  {isDbLoading && (
+                    <Loader2 className="w-3.5 h-3.5 text-blue-600 animate-spin" />
+                  )}
+                </h3>
+                  <div className="text-xs text-slate-500 space-y-1">
+                      <div>Parsa: <span className="font-extrabold text-blue-600 text-sm">{parsaHours.toFixed(2)} hrs</span></div>
+                      <div>Elizabeth: <span className="font-extrabold text-blue-600 text-sm">{elizabethHours.toFixed(2)} hrs</span></div>
+                  </div>
               </div>
-            </div>
 
             {/* Search Filter */}
             <div className="relative w-full sm:w-64">
