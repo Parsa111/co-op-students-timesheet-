@@ -235,27 +235,27 @@ export default function TimesheetApp() {
       return;
     }
 
-    const alreadyRecordedToday = entries.some(
-      (entry) =>
-        entry.name.toLowerCase() === name.trim().toLowerCase() && entry.date === date
-    );
+// const alreadyRecordedToday = entries.some(
+//   (entry) =>
+//     entry.name.toLowerCase() === name.trim().toLowerCase() && entry.date === date
+// );
 
-    if (alreadyRecordedToday && !hasSupabase) {
-      setSaveError("Sorry, you already recorded your time.");
-      return;
-    }
+// if (alreadyRecordedToday && !hasSupabase) {
+//   setSaveError("Sorry, you already recorded your time.");
+//   return;
+// }
 
-    if (hasSupabase && alreadyRecordedToday) {
-      const existing = entries.find(
-        (entry) =>
-          entry.name.toLowerCase() === name.trim().toLowerCase() && entry.date === date
-      );
+// if (hasSupabase && alreadyRecordedToday) {
+//   const existing = entries.find(
+//     (entry) =>
+//       entry.name.toLowerCase() === name.trim().toLowerCase() && entry.date === date
+//   );
 
-      if (existing && existing.id) {
-        setSaveError("Sorry, you already recorded your time.");
-        return;
-      }
-    }
+//   if (existing && existing.id) {
+//     setSaveError("Sorry, you already recorded your time.");
+//     return;
+//   }
+// }
 
     const calculated = calculateHours(timeIn, timeOut);
     const newEntry: TimesheetEntry = {
