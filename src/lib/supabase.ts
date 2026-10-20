@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { TimesheetEntry } from "@/types/timesheet";
+import { calculateHours } from "@/utils/timeUtils";
 
 // Standard environment variables with your project credentials as default
 const ENV_SUPABASE_URL =
@@ -92,7 +93,7 @@ export async function fetchTimesheets(): Promise<TimesheetEntry[]> {
     date: row.date,
     timeIn: row.time_in,
     timeOut: row.time_out,
-    totalHours: Number(row.total_hours),
+    totalHours: calculateHours(row.time_in, row.time_out),
     createdAt: row.created_at,
   }));
 }
